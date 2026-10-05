@@ -642,10 +642,77 @@ function editProduct(i,key,value){
   renderProducts(); renderCart(); fillAdmin();
 }
 function loadProductImage(event,i){
-  const file=event.target.files[0]; if(!file)return;
-  const reader=new FileReader();
-  reader.onload=()=>{products[i].image=reader.result;localStorage.setItem("products",JSON.stringify(products));renderProducts();fillAdmin();};
+  const file = event.target.files[0];
+  if(!file) return;
+
+  const reader = new FileReader();
+
+  reader.onload = function(e){
+    const img = new Image();
+
+    img.onload = function(){
+
+      const canvas = document.createElement("canvas");
+
+      const maxSize = 1000;
+
+      let width = img.width;
+      let height = img.height;
+
+      if(width > height){
+        if(width > maxSize){
+          height = height * maxSize / width;
+          width = maxSize;
+        }
+      }else{
+        if(height > maxSize){
+          width = width * maxSize / height;
+          height = maxSize;
+        }
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+
+      const ctx = canvas.getContext("2d");
+
+      ctx.drawImage(
+        img,
+        0,
+        0,
+        width,
+        height
+      );
+
+      products[i].image = canvas.toDataURL(
+        "image/jpeg",
+        0.75
+      );
+
+      try {
+        localStorage.setItem(
+          PRODUCTS_STORAGE_KEY,
+          JSON.stringify(products)
+        );
+
+        renderProducts();
+        fillAdmin();
+
+      } catch(error) {
+
+        alert(
+          "Cette image est trop lourde pour le stockage du navigateur. Essaie une image plus petite."
+        );
+
+        console.error(error);
+      }
+    };
+
+    img.src = e.target.result;
+  };
+
   reader.readAsDataURL(file);
+}
 }
 
 let imageEditorIndex = -1;
