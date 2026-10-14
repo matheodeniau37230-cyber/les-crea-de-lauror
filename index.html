@@ -184,30 +184,6 @@ Pour le moment, le paiement en ligne est en cours de mise en place.</p>
     <button class="btn add" onclick="add(16)">Ajouter au panier</button>
 
 
-
-        </div>
-      </div>
-    </div>
-    <div class="productEditor">
-      <div class="preview"><span>💎</span></div>
-      <div class="editFields">
-        <div class="editGrid">
-          <div class="field"><label>Nom</label><input value="Nouveau produit" onchange="editProduct(12,'name',this.value)"></div>
-          <div class="field"><label>Prix (€)</label><input type="number" step="0.01" min="0" value="0" onchange="editProduct(12,'price',this.value)"></div>
-          <div class="field full"><label>Description</label><textarea rows="2" onchange="editProduct(12,'description',this.value)">Description du produit</textarea></div>
-          <div class="field">
-            <label>Image du produit</label>
-            <input type="file" accept="image/*" onchange="loadProductImage(event,12)">
-            
-          </div>
-          <div class="field">
-            <label>Emoji si aucune image</label>
-            <input value="💎" onchange="editProduct(12,'emoji',this.value)">
-          </div>
-        </div>
-        <div class="adminActions">
-          <button class="btn danger" onclick="deleteProduct(12)">🗑️ Supprimer</button>
-          
         </div>
       </div>
     </div>
